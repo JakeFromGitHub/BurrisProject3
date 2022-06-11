@@ -1,0 +1,49 @@
+﻿@model List<BurrisProject3.Models.Product>
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2>Products</h2>
+
+<a href="/Product/AddProduct">Add New Product</a>
+<div class="row">
+    <div class="col-md-6">
+        <input id="txtSearch" type="text" class="form-control" placeholder="Search..." />
+    </div>
+    <div class="col-md-6">
+        <input type="button" class="btn btn-info" value="Search" onclick="Sortable.Search();" />
+    </div>
+</div>
+<table class="sortable table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th onclick="Sortable.Sort(0)" class="tableHeader">Product Code</th>
+            <th onclick="Sortable.Sort(1)" class="tableHeader">Description</th>
+            <th onclick="Sortable.Sort(2)" class="tableHeader">Unit Price</th>
+            <th onclick="Sortable.Sort(3)" class="tableHeader">Quantity on Hand</th>
+            <th class="tableHeader">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* Loop through the customers list *@
+        @foreach (var products in Model) {
+            <tr>
+                <td>@products.ProductCode</td>
+                <td>@products.Description</td>
+                <td>@products.UnitPrice</td>
+                <td>@products.OnHandQuantity</td>
+                <td>
+                    <a href="/Product/AddProduct/@products.ProductCode">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    Sortable.baseUrl = '/Product/Products/';
+</script>
+
+
+
+

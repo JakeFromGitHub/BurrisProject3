@@ -1,0 +1,93 @@
+﻿@model BurrisProject3.Models.InvoiceDTO
+@{
+    ViewBag.Title = "Add an Invoice";
+}
+
+<h2>Add an Invoice</h2>
+
+@using (Html.BeginForm("AddInvoice", "Invoices", FormMethod.Post)) {
+    @Html.HiddenFor(i => i.Invoice.InvoiceID)
+
+    <div class="row">
+        <datalist id="customersList">
+            @foreach (var customer in Model.Customers) {
+                <option value="@customer.CustomerID - @customer.Name" />
+            }
+        </datalist>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>Customer Name</span>
+        </div>
+        <div class="col-md-6">
+            <input value="@Model.Invoice.CustomerID - @Model.Invoice.Customer.Name" type="text" list="customersList" class="form-control" name="customerId" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>Invoice Date</span>
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(i => i.Invoice.InvoiceDate, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>Product Total</span>
+        </div>
+        <div class="col-md-6">
+            <input value="@Model.Invoice.ProductTotal" type="text" readonly class="form-control" name="ProductTotal" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>Sales Tax</span>
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(i => i.Invoice.SalesTax, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>Shipping</span>
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(i => i.Invoice.Shipping, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>Invoice Total</span>
+        </div>
+        <div class="col-md-6">
+            <input value="@Model.Invoice.InvoiceTotal" type="text" readonly class="form-control" name="Invoice.InvoiceTotal" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button type="submit" class="btn">Save Invoice</button>
+        </div>
+    </div>
+}
+<hr />
+
+<h4>Invoice Line Items Section</h4>
+
+<a href="/InvoiceLineItems/AddInvoice/?invoiceId=@Model.Invoice.InvoiceID&productCode=0">Add New</a>
+
+@foreach (var lineItem in Model.Invoice.InvoiceLineItems) {
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <span>Product Code</span>
+                </div>
+                <div class="col-md-6">
+                    <input name="ProductCode" list="products" value="@lineItem.ProductCode" type="text" class="form-control" />
+                </div>
+            </div>
+
+            <a href="/InvoiceLineItems/AddInvoice/?invoiceId=@lineItem.InvoiceID&productCode=@lineItem.ProductCode">Edit</a>
+        </div>
+    </div>
+}

@@ -1,0 +1,26 @@
+﻿@model BurrisProject3.Models.Customer
+@{
+    ViewBag.Title = "AddCustomer";
+}
+
+<h2>Add Customer</h2>
+
+@using (Html.BeginForm("AddCustomer", "Customers", FormMethod.Post, new {enctype = "multipart/form-data"})) {
+    @Html.TextBoxFor(c => c.Name, new {@class = "form-control", placeholder = "Name"})
+    <div class="autocomplete-container" id="autocomplete-container"></div>
+    @Html.HiddenFor(c => c.Address, new {@class = "form-control", placeholder = "Address", id = "custAddress"})
+    @Html.HiddenFor(c => c.City, new {@class = "form-control", placeholder = "Address", id = "custCity"})
+    @Html.HiddenFor(c => c.State, new {@class = "form-control", placeholder = "Address", id = "custState"})
+    @Html.HiddenFor(c => c.ZipCode, new {@class = "form-control", placeholder = "Address", id = "custZipCode"})
+
+    <input type="submit" value="Submit" class="btn btn-info" />
+    <input type="button" value="Delete" class="btn btn-danger" onclick="apiHandler.DELETE('/Customers/Delete/@Model.Name')" />
+}
+
+<script src="~/Scripts/geoapify.js"></script>
+
+<script>
+    let custAddress = "@Model.Address, @Model.City, @Model.State, @Model.ZipCode";
+    $("autocomplete-container input".val(custAddress));
+</script>
+

@@ -1,0 +1,54 @@
+﻿@model List<BurrisProject3.Models.Invoice>
+@{
+    ViewBag.Title = "Invoices";
+}
+
+<h2 class="headerTitle">Invoices</h2>
+<a href="/Invoice/AddInvoice">Add New Invoice</a>
+<div class="row">
+    <div class="col-md-6">
+        <input id="txtSearch" type="text" class="form-control" placeholder="Search..." />
+    </div>
+    <div class="col-md-6">
+        <input type="button" class="btn btn-info" value="Search" onclick="Sortable.Search();" />
+    </div>
+</div>
+<table class="sortable table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th onclick="Sortable.Sort(0)" class="tableHeader">Invoice ID</th>
+            <th onclick="Sortable.Sort(1)" class="tableHeader">Customer ID</th>
+            <th onclick="Sortable.Sort(2)" class="tableHeader">Invoice Date</th>
+            <th onclick="Sortable.Sort(3)" class="tableHeader">Product Total</th>
+            <th onclick="Sortable.Sort(4)" class="tableHeader">Sales Tax</th>
+            <th onclick="Sortable.Sort(5)" class="tableHeader">Shipping</th>
+            <th onclick="Sortable.Sort(6)" class="tableHeader">Invoice Total</th>
+            <th class="tableHeader">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* Loop through the customers list *@
+        @foreach (var invoices in Model) {
+            <tr>
+                <td>@invoices.InvoiceID</td>
+                <td>@invoices.CustomerID</td>
+                <td>@invoices.InvoiceDate</td>
+                <td>@invoices.ProductTotal</td>
+                <td>@invoices.SalesTax</td>
+                <td>@invoices.Shipping</td>
+                <td>@invoices.InvoiceTotal</td>
+                <td>
+                    <a href="/Invoice/AddInvoice/@invoices.InvoiceID">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    Sortable.baseUrl = '/Invoice/Invoices/';
+</script>
+
+
+
+

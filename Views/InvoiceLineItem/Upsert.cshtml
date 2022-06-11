@@ -1,0 +1,16 @@
+﻿@model BurrisProject3.Models.InvoiceLineItem
+@{
+    ViewBag.Title = "Upsert";
+}
+
+<h2>Upsert</h2>
+
+@using (Html.BeginForm("Upsert", "InvoiceLineItem", FormMethod.Post)) {
+<span>Invoice ID</span> @Html.HiddenFor(i => i.InvoiceID);
+<span>Product Code</span> @Html.TextBoxFor(i => i.ProductCode);
+<span>Unit Price</span> @Html.TextBoxFor(i => i.UnitPrice);
+<span>Quantity</span> @Html.TextBoxFor(i => i.Quantity);
+
+    <button type="submit">Submit</button>
+}
+

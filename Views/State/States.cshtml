@@ -1,0 +1,47 @@
+﻿@model List<BurrisProject3.Models.State>
+@{
+    ViewBag.Title = "States";
+}
+
+<h2>States</h2>
+
+<a href="/State/AddState">Add New State</a>
+<div class="row">
+    <div class="col-md-6">
+        <input id="txtSearch" type="text" class="form-control" placeholder="Search..." />
+    </div>
+    <div class="col-md-6">
+        <input type="button" class="btn btn-info" value="Search" onclick="Sortable.Search();" />
+    </div>
+</div>
+<table class="sortable table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th onclick="Sortable.Sort(0)" class="tableHeader">State Code</th>
+            <th onclick="Sortable.Sort(1)" class="tableHeader">State Name</th>
+            <th class="tableHeader">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* Loop through the customers list *@
+        @foreach (var states in Model) {
+            <tr>
+                <td>@states.StateCode</td>
+                <td>@states.StateName</td>
+                <td>
+                    <a href="/State/AddState/@states.StateCode">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    Sortable.baseUrl = '/State/States/';
+</script>
+
+
+
+
+
+

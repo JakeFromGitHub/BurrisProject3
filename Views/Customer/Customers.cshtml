@@ -1,0 +1,50 @@
+﻿@model List<BurrisProject3.Models.Customer>
+@{
+    ViewBag.Title = "Customers";
+}
+
+<h2 class="headerTitle">Customers</h2>
+    <a href="/Customer/AddCustomer">Add New Customer</a>
+    <div class="row">
+        <div class="col-md-6">
+            <input id="txtSearch" type="text" class="form-control" placeholder="Search..." />
+        </div>
+        <div class="col-md-6">
+            <input type="button" class="btn btn-info" value="Search" onclick="Sortable.Search();" />
+        </div>
+    </div>
+    <table class="sortable table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th onclick="Sortable.Sort(0)" class="tableHeader">Customer ID</th>
+                <th onclick="Sortable.Sort(1)" class="tableHeader">Name</th>
+                <th onclick="Sortable.Sort(2)" class="tableHeader">Address</th>
+                <th onclick="Sortable.Sort(3)" class="tableHeader">City</th>
+                <th onclick="Sortable.Sort(4)" class="tableHeader">State</th>
+                <th onclick="Sortable.Sort(5)" class="tableHeader">ZipCode</th>
+                <th class="tableHeader">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @* Loop through the customers list *@
+            @foreach (var customers in Model) {
+                <tr>
+                    <td>@customers.CustomerID</td>
+                    <td>@customers.Name</td>
+                    <td>@customers.Address</td>
+                    <td>@customers.City</td>
+                    <td>@customers.State</td>
+                    <td>@customers.ZipCode</td>
+                    <td>
+                        <a href="/Customer/AddCustomer/@customers.Name">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        Sortable.baseUrl = '/Customer/Customers/';
+    </script>
+
+
